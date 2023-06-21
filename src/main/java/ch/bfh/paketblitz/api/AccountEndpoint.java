@@ -1,9 +1,12 @@
 package ch.bfh.paketblitz.api;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Arrays;
@@ -26,15 +29,15 @@ public class AccountEndpoint {
     );
 
     @CrossOrigin(origins = "*")
-    @GetMapping(value = "/accounts", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiOperation("get all accounts")
+    @GetMapping(value = "/accounts", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "get all accounts")
     public List<AccountResponse> getAccounts() {
         return ACCOUNTS;
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping(value = "/accounts/{accountName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiOperation("get single account")
+    @GetMapping(value = "/accounts/{accountName}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "get single account")
     public AccountResponse getAccount(@PathVariable("accountName") String accountName) {
         return ACCOUNTS.stream()
                 .filter(accountResponse -> accountResponse.getAccountName().equals(accountName))
